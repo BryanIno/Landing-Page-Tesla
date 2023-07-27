@@ -1,0 +1,48 @@
+---
+import Logo from "./Logo.astro";
+
+---
+
+<header class="fixed top-0 z-40 flex items-center justify-between w-full px-10 py-4 text-white" id="header">
+    <div class="flex flex-grow basis-0">
+        <Logo/>
+    </div>
+    <nav class="">
+        <ul class="flex text-sm [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block  [&>li>a]:px-4  [&>li>a]:py-2 ">
+            <li><a href="#">Model S</a></li>
+            <li><a href="#">Model 3</a></li>
+            <li><a href="#">Model X</a></li>
+            <li><a href="#">Model Y</a></li>
+            <li><a href="#">Techo Solar</a></li>
+            <li><a href="#">Paneles solares</a></li>
+            <li><a href="">Powerwall</a></li>
+        </ul>
+    </nav>
+    <nav class="flex justify-end flex-grow basis-0">
+        <ul class="flex text-sm [&>li>a]:text-current [&>li>a]:font-medium [&>li>a]:inline-block  [&>li>a]:px-4  [&>li>a]:py-2 ">
+            <li><a href="">Tienda</a></li>
+            <li><a href="">Cuenta</a></li>
+            <li><a href="">Menú</a></li>
+        </ul>		
+    </nav>
+</header>
+<script>
+    const $header=document.querySelector('#header') as HTMLElement
+    const observarOpciones={
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.90 // % de visibilidad
+    }
+    const observar=new IntersectionObserver((entries=>{
+        entries.forEach(entry=>{
+            const {isIntersecting}= entry
+            if(isIntersecting){
+                const color=entry.target.getAttribute('data-header-color')
+                $header.style.color=color;
+            }
+        })
+    }),observarOpciones)
+    
+    const $secciones=document.querySelectorAll(".landing-seccion")
+    $secciones.forEach((section)=>observar.observe(section))
+</script>
